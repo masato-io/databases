@@ -18,7 +18,7 @@ module.exports = {
     get: function(req, res) {},
     post: function(req, res) {
       models.messages.post('Dave', function(output) {
-        console.log(output);
+        output();
       });
     }
   }

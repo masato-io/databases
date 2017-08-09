@@ -32,5 +32,6 @@ UPDATE pet SET name = 'penny' where owner = 'masato';
 INSERT INTO tbl_name (col1,col2) VALUES(15,col1*2);
 
 mysql.server start
+mysql.server stop
 mysql -u root < server/schema.sql;
 mysql-ctl cli
