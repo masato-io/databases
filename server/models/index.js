@@ -13,8 +13,13 @@ module.exports = {
   users: {
     // Ditto as above.
     get: function() {},
-    post: function(username, cb) {
-      db('INSERT into username (name) VALUES (test)', cb(result));
+    // post: function(username, cb) {
+    //   db('INSERT into username (name) VALUES (test)', cb(result));
+    // }
+    post: function(value, cb) {
+      db('INSERT into username (name) VALUES (test);', function(output) {
+        cb(value, output);
+      });
     }
   }
 };
