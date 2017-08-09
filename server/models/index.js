@@ -14,12 +14,7 @@ module.exports = {
     // Ditto as above.
     get: function() {},
     post: function(username, cb) {
-      db(
-        'INSERT into username (name) VALUES (' + username + ')',
-        function(output) {
-          cb(value, output);
-        }
-      );
+      db('INSERT into username (name) VALUES (test)', cb(result));
     }
   }
 };

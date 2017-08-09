@@ -3,7 +3,7 @@ DROP DATABASE chat;
 CREATE DATABASE chat;
 
 USE chat;
-SET SQL_MODE = '';
+
 -- ---
 -- Globals
 -- ---
@@ -19,12 +19,12 @@ SET SQL_MODE = '';
 DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE `message` (
-  `objectId` INTEGER NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(20) NULL DEFAULT NULL,
+  `objectId` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NULL,
+  `roomname` VARCHAR(20) NULL DEFAULT NULL,
   `text` VARCHAR(255) NULL DEFAULT NULL,
   `createdAt` DATETIME NOT NULL,
   `updatedAt` TIMESTAMP NOT NULL,
-  `fkid_roomname` INTEGER NOT NULL,
+  `fkid_username` INTEGER NOT NULL,
   PRIMARY KEY (`objectId`)
 );
 
@@ -33,10 +33,10 @@ CREATE TABLE `message` (
 --
 -- ---
 
-DROP TABLE IF EXISTS `roomname`;
+DROP TABLE IF EXISTS `username`;
 
-CREATE TABLE `roomname` (
-  `id` INTEGER AUTO_INCREMENT,
+CREATE TABLE `username` (
+  `id` INTEGER NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL DEFAULT 'NULL',
   PRIMARY KEY (`id`)
 );
@@ -44,7 +44,7 @@ CREATE TABLE `roomname` (
 -- ---
 -- Foreign Keys
 -- ---
-ALTER TABLE `message` ADD FOREIGN KEY (fkid_roomname) REFERENCES `roomname` (`id`);
+ALTER TABLE `message` ADD FOREIGN KEY (fkid_username) REFERENCES `username` (`id`);
 -- ---
 -- Table Properties
 -- ---
@@ -52,9 +52,9 @@ ALTER TABLE `message` ADD FOREIGN KEY (fkid_roomname) REFERENCES `roomname` (`id
 -- ALTER TABLE `message` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `roomname` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO roomname (name) VALUES ('room1');
-INSERT INTO roomname (name) VALUES ('room2');
-INSERT INTO message (username, text, fkid_roomname) VALUES ('testuser', 'hello world', 1);
+INSERT INTO username (name) VALUES ('user1');
+INSERT INTO username (name) VALUES ('user2');
+INSERT INTO message (roomname, text, fkid_username) VALUES ('lobby', 'hello world', 1);
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
