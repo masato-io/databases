@@ -1,5 +1,11 @@
 var models = require('../models');
 
+var sendResponse = function(response, data, statusCode) {
+  statusCode = statusCode || 200;
+  response.writeHead(statusCode, headers);
+  response.end(JSON.stringify(data));
+};
+
 module.exports = {
   messages: {
     get: function(req, res) {
@@ -17,8 +23,17 @@ module.exports = {
     // Ditto as above
     get: function(req, res) {},
     post: function(req, res) {
-      models.messages.post('Dave', function(output) {
-        output();
+      var data = '';
+      req.on('data', function(chunk) {
+        data += chunk;
+      });
+      req.on('end', function() {
+        // models.messages.post(data, function(output) {
+        //   sendResponse(res, output);
+        // });
+        models.messages.post('Dave', function(output) {
+          sendResponse(res, output);
+        });
       });
     }
   }
