@@ -14,10 +14,12 @@ var dbQuery = function(query, cb) {
     if (error) {
       throw error;
     }
-    console.log('The solution is: ', results);
+    // console.log('The solution is: ', results);
     cb(results);
   });
   connection.end();
 };
 
 module.exports = dbQuery;
+
+// INSERT INTO pet (name, owner) VALUES('toby', 'masato');

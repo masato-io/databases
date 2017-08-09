@@ -2,12 +2,17 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function() {
+    get: function(cb) {
+      // need joined query
       db('select * from message', function(output) {
-        console.log(output);
+        cb(output);
       });
     }, // a function which produces all the messages
-    post: function() {} // a function which can be used to insert a message into the database
+    post: function(value, cb) {
+      db('INSERT INTO message(text) VALUES(\'hi\');', function(output) {
+        cb(value, output);
+      });
+    } // a function which can be used to insert a message into the database
   },
 
   users: {
