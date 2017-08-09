@@ -9,7 +9,7 @@ module.exports = {
       });
     }, // a function which produces all the messages
     post: function(value, cb) {
-      db('INSERT INTO message(text) VALUES(\'hi\');', function(output) {
+      db('INSERT INTO message(text, createdAt, fkid_roomname) VALUES(\'hi\', NOW(), 1);', function(output) {
         cb(value, output);
       });
     } // a function which can be used to insert a message into the database
