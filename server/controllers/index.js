@@ -15,21 +15,16 @@ var sendResponse = function(response, data, statusCode) {
 
 module.exports = {
   messages: {
-    get: function(req, res) {
-      models.messages.get(function(output) {
-        sendResponse(res, output);
+    get: (req, res) => {
+      models.messages.get(results => {
+        res.json(results);
       });
-    }, // a function which handles a get request for all messages
+    },
     post: function(req, res) {
-      // get data
-      var data = '';
-      req.on('data', function(chunk) {
-        data += chunk;
-      });
-      req.on('end', function() {
-        models.messages.post(data, function(output) {
-          sendResponse(res, output);
-        });
+      // console.log(req.body);
+      params = [req.body['text'], req.body['username'], req.body['roomname']];
+      models.messages.post(params, function(output) {
+        res.json(output);
       });
     } // a function which handles posting a message to the database
   },

@@ -10,12 +10,12 @@ var query = function(query, callback) {
     database: 'chat'
   });
   connection.connect();
-  connection.query(query, function(error, results, fields) {
+  connection.query(query, function(error, output, fields) {
     if (error) {
       throw error;
     }
-    // console.log('The solution is: ', results);
-    callback(results);
+    // console.log('The solution is: ', output);
+    callback(output);
   });
   connection.end();
 };
