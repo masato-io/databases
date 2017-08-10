@@ -3,7 +3,7 @@ var mysql = require('mysql');
 // Create a database connection and export it from this file.
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
-var dbQuery = function(query, cb) {
+var query = function(query, callback) {
   var connection = mysql.createConnection({
     user: 'root',
     password: '',
@@ -14,10 +14,12 @@ var dbQuery = function(query, cb) {
     if (error) {
       throw error;
     }
-    console.log('The solution is: ', results);
-    cb(results);
+    // console.log('The solution is: ', results);
+    callback(results);
   });
   connection.end();
 };
 
-module.exports = dbQuery;
+module.exports.query = query;
+
+// INSERT INTO pet (name, owner) VALUES('toby', 'masato');

@@ -4,58 +4,28 @@ CREATE DATABASE chat;
 SET SQL_MODE="";
 USE chat;
 
--- ---
--- Globals
--- ---
+DROP TABLE IF EXISTS `messages`;
 
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
-
--- ---
--- Table 'message'
---
--- ---
-
-DROP TABLE IF EXISTS `message`;
-
-CREATE TABLE `message` (
-  `objectId` INTEGER NOT NULL AUTO_INCREMENT,
+CREATE TABLE `messages` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `roomname` VARCHAR(20) NULL DEFAULT NULL,
   `text` VARCHAR(255) NULL DEFAULT NULL,
   `createdAt` DATETIME NOT NULL,
   `updatedAt` TIMESTAMP NOT NULL,
   `fkid_username` INTEGER NOT NULL,
-  PRIMARY KEY (`objectId`)
-);
-
--- ---
--- Table 'roomname'
---
--- ---
-
-DROP TABLE IF EXISTS `username`;
-
-CREATE TABLE `username` (
-  `id` INTEGER AUTO_INCREMENT,
-  `name` VARCHAR(30) NOT NULL DEFAULT 'NULL',
   PRIMARY KEY (`id`)
 );
 
--- ---
--- Foreign Keys
--- ---
-ALTER TABLE `message` ADD FOREIGN KEY (fkid_username) REFERENCES `username` (`id`);
--- ---
--- Table Properties
--- ---
+DROP TABLE IF EXISTS `users`;
 
--- ALTER TABLE `message` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `roomname` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE `users` (
+  `id` INTEGER AUTO_INCREMENT,
+  `username` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  PRIMARY KEY (`id`)
+);
 
-INSERT INTO username (name) VALUES ('user1');
-INSERT INTO username (name) VALUES ('user2');
-INSERT INTO message (roomname, text, fkid_username) VALUES ('lobby', 'hello world', 1);
+ALTER TABLE `messages` ADD FOREIGN KEY (fkid_username) REFERENCES `users` (`id`);
 
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/
+INSERT INTO users (username) VALUES ('user1');
+INSERT INTO users (username) VALUES ('user2');
+INSERT INTO messages (roomname, text, fkid_username) VALUES ('lobby', 'hello world', 1);
